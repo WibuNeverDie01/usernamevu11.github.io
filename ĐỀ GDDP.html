@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ôn Tập Trắc Nghiệm GDĐP 10 - GK I</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success-bg: #dcfce7;
+      --success-border: #16a34a;
+      --success-text: #166534;
+      --danger-bg: #fee2e2;
+      --danger-border: #dc2626;
+      --danger-text: #991b1b;
+      --warn-bg: #fef9c3;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: #fff;
+      padding: 22px 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 1.45rem;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .toolbar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      align-items: end;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    select, button {
+      font-family: inherit;
+      font-size: 0.95rem;
+      border-radius: 10px;
+    }
+
+    select {
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .checkbox-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .checkbox-stack label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      padding: 10px 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: #e2e8f0; color: var(--text); }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-success { background: #16a34a; color: #fff; }
+    .btn-success:hover { background: #15803d; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 880px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .badge {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .nav-item {
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .nav-item:hover { border-color: var(--primary); }
+    .nav-item.answered { background: #dbeafe; border-color: #60a5fa; color: #1e3a8a; }
+    .nav-item.correct { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
+    .nav-item.wrong { background: var(--danger-bg); border-color: var(--danger-border); color: var(--danger-text); }
+
+    .result-box {
+      display: none;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .result-box.show { display: block; }
+    .score-big {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 4px 0;
+    }
+
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .q-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+
+    .q-title {
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-size: 1.02rem;
+    }
+
+    .q-num {
+      color: var(--primary);
+      margin-right: 4px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .opt-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.12s ease;
+      background: #fff;
+    }
+
+    .opt-label:hover {
+      border-color: #93c5fd;
+      background: #f8fafc;
+    }
+
+    .opt-label input {
+      margin-top: 4px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .opt-label.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .opt-label.correct-opt {
+      border-color: var(--success-border);
+      background: var(--success-bg);
+      color: var(--success-text);
+      font-weight: 600;
+    }
+
+    .opt-label.wrong-opt {
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+      color: var(--danger-text);
+    }
+
+    .q-feedback {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .q-feedback.show { display: block; }
+    .q-feedback.ok { background: var(--success-bg); color: var(--success-text); }
+    .q-feedback.err { background: var(--danger-bg); color: var(--danger-text); }
+    .q-feedback.warn { background: var(--warn-bg); color: #854d0e; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>ÔN TẬP TRẮC NGHIỆM GDĐP 10 – GIỮA KÌ I</h1>
+      <p>Đầy đủ 40 câu hỏi • Hỗ trợ nhiều mã đề • Xáo trộn câu hỏi & đáp án • Làm lại nhiều lần</p>
+    </header>
+
+    <div class="toolbar">
+      <div class="control-group">
+        <label for="examCode">Chọn Mã Đề</label>
+        <select id="examCode">
+          <option value="000">Mã đề gốc (000 - Không xáo)</option>
+          <option value="101" selected>Mã đề 101</option>
+          <option value="102">Mã đề 102</option>
+          <option value="103">Mã đề 103</option>
+          <option value="104">Mã đề 104</option>
+          <option value="105">Mã đề 105</option>
+          <option value="random">Mã đề ngẫu nhiên mới</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="quizMode">Chế độ làm bài</label>
+        <select id="quizMode">
+          <option value="exam">Thi thử (Nộp bài mới chấm điểm)</option>
+          <option value="practice">Ôn tập (Chọn xong hiện đáp án ngay)</option>
+        </select>
+      </div>
+
+      <div class="checkbox-stack">
+        <label><input type="checkbox" id="shuffleQuestions" checked /> Xáo trộn thứ tự câu hỏi</label>
+        <label><input type="checkbox" id="shuffleOptions" checked /> Xáo trộn đáp án (A, B, C, D)</label>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="generateNewRandomCode()">🎲 Đổi mã đề mới</button>
+        <button class="btn btn-secondary" onclick="resetCurrentExam()">🔄 Làm lại đề này</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <main id="questionsContainer" class="questions-list"></main>
+
+      <aside class="sidebar">
+        <div class="stats-bar">
+          <span id="currentCodeLabel" class="badge">Mã đề: 101</span>
+          <span id="timerLabel">⏱ 00:00</span>
+        </div>
+
+        <div id="resultBox" class="result-box">
+          <div style="font-size:0.9rem;color:#475569;">KẾT QUẢ BÀI LÀM</div>
+          <div class="score-big" id="scoreText">0.0 / 10</div>
+          <div id="detailText" style="font-size:0.88rem;color:#334155;"></div>
+        </div>
+
+        <div style="font-size:0.85rem;font-weight:600;color:#64748b;margin-bottom:8px;">
+          Danh sách câu hỏi (<span id="answeredCount">0</span>/40)
+        </div>
+        <div id="navGrid" class="nav-grid"></div>
+
+        <div class="btn-row" style="flex-direction:column;">
+          <button id="submitBtn" class="btn btn-success" onclick="submitExam()">✅ Nộp bài & Chấm điểm</button>
+          <button class="btn btn-secondary" onclick="resetCurrentExam()">🔄 Làm lại từ đầu</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // Ngân hàng 40 câu hỏi đầy đủ từ đề ôn tập
+    const RAW_QUESTIONS = [
+      { id: 1, q: "Thành phố Đà Nẵng thuộc vùng kinh tế - xã hội nào của Việt Nam?", opts: ["Bắc Trung Bộ.", "Tây Nguyên.", "Đông Nam Bộ.", "Duyên hải Nam Trung Bộ."], ans: 3 },
+      { id: 2, q: "Thành phố Đà Nẵng tiếp giáp với tỉnh/thành nào phía Bắc?", opts: ["Huế.", "Quảng Ngãi.", "Quảng Trị.", "Sê kông (Lào)."], ans: 0 },
+      { id: 3, q: "Di sản văn hóa thế giới nào sau đây nằm trên địa bàn tỉnh Quảng Nam (cũ)?", opts: ["Cố đô Huế.", "Thánh địa Mỹ Sơn.", "Phong Nha - Kẻ Bàng.", "Thành nhà Hồ."], ans: 1 },
+      { id: 4, q: "Lễ hội Cầu Ngư ở Đà Nẵng gắn liền với tín ngưỡng thờ loài vật nào?", opts: ["Cá Chép.", "Cá Voi (Cá Ông).", "Rùa biển.", "Rồng."], ans: 1 },
+      { id: 5, q: "Làng nghề đá mỹ nghệ Non Nước nằm ở phường nào của thành phố Đà Nẵng?", opts: ["Sơn Trà.", "Hải Châu.", "Ngũ Hành Sơn.", "Liên Chiểu."], ans: 2 },
+      { id: 6, q: "Loại hình nghệ thuật dân gian nào của Quảng Nam (cũ) đã được UNESCO ghi danh là di sản văn hóa phi vật thể?", opts: ["Hát Xoan.", "Nghệ thuật Bài Chòi.", "Đờn ca tài tử.", "Nhã nhạc cung đình."], ans: 1 },
+      { id: 7, q: "Huyện đảo nào sau đây trực thuộc thành phố Đà Nẵng?", opts: ["Trường Sa.", "Cồn Cỏ.", "Lý Sơn.", "Hoàng Sa."], ans: 3 },
+      { id: 8, q: "Di sản văn hóa thế giới nào sau đây thuộc địa phận tỉnh Quảng Nam (cũ)?", opts: ["Cố Đô Huế.", "Nhã Nhạc Cung Đình.", "Thánh Địa Mỹ Sơn.", "Vườn quốc gia Phong Nha - Kẻ Bàng."], ans: 2 },
+      { id: 9, q: "Tôn giáo nào du nhập vào Hội An từ rất sớm thông qua các thương nhân và giáo sĩ phương Tây?", opts: ["Phật giáo.", "Hồi giáo.", "Kitô giáo (Công giáo).", "Cao Đài."], ans: 2 },
+      { id: 10, q: "Sông Thu Bồn chảy qua chủ yếu địa phận tỉnh/thành nào?", opts: ["Quảng Ngãi.", "Quảng Trị.", "Thừa Thiên Huế.", "Đà Nẵng."], ans: 3 },
+      { id: 11, q: "Địa hình chủ yếu của tỉnh Quảng Nam (cũ) có đặc điểm gì?", opts: ["Bằng phẳng, chủ yếu là đồng bằng.", "Thấp dần từ Tây sang Đông, có nhiều núi cao.", "Cao ở phía Đông, thấp dần về phía Tây.", "Chỉ bao gồm vùng ven biển và hải đảo."], ans: 1 },
+      { id: 12, q: "Lễ hội Quán Thế Âm (Ngũ Hành Sơn - Đà Nẵng) thường được tổ chức vào thời gian nào?", opts: ["19/2 Âm lịch.", "19/2 Dương lịch.", "Rằm tháng Giêng.", "Rằm tháng Bảy."], ans: 0 },
+      { id: 13, q: "Tín ngưỡng thờ Cá Ông (Cá Voi) phổ biến ở cư dân vùng nào của Đà Nẵng?", opts: ["Cư dân vùng ven biển.", "Cư dân vùng núi cao.", "Cư dân vùng trung du.", "Cư dân sống ở đô thị mới."], ans: 0 },
+      { id: 14, q: "Vị trí địa lý của Đà Nẵng có vai trò như thế nào trong Hành lang kinh tế Đông - Tây (EWEC)?", opts: ["Là cửa ngõ ra biển Đông quan trọng của hành lang.", "Là trung tâm nông nghiệp lớn nhất hành lang.", "Là điểm đầu phía Tây của hành lang.", "Là khu vực duy nhất có cảng biển nước sâu."], ans: 0 },
+      { id: 15, q: "Đặc điểm nổi bật trong kiến trúc nhà cổ Hội An phản ánh sự giao thoa văn hóa giữa Việt Nam và các quốc gia nào?", opts: ["Ấn Độ và Thái Lan.", "Pháp và Mỹ.", "Trung Hoa và Nhật Bản.", "Lào và Campuchia."], ans: 2 },
+      { id: 16, q: "Tín ngưỡng thờ Mẫu ở Quảng Nam - Đà Nẵng thể hiện điều gì trong đời sống tâm linh của cư dân địa phương?", opts: ["Sự bài trừ các tôn giáo ngoại nhập.", "Sự tôn vinh vai trò của người phụ nữ và cầu mong sự bảo trợ của tự nhiên.", "Chỉ tập trung vào việc thờ cúng tổ tiên trong gia đình.", "Sự tách biệt hoàn toàn với văn hóa Chăm."], ans: 1 },
+      { id: 17, q: "Vị trí địa lý ven biển của thành phố Đà Nẵng tạo điều kiện thuận lợi nhất cho hoạt động kinh tế nào sau đây?", opts: ["Phát triển nông nghiệp lúa nước.", "Khai thác khoáng sản kim loại.", "Phát triển cảng biển, du lịch và logistic.", "Phát triển lâm nghiệp."], ans: 2 },
+      { id: 18, q: "Ý nghĩa nhân văn sâu sắc nhất của tín ngưỡng thờ cúng tổ tiên tại Quảng Nam - Đà Nẵng là gì?", opts: ["Cầu mong tài lộc, phú quý.", "Thể hiện đạo lý uống nước nhớ nguồn, gắn kết dòng họ.", "Thể hiện sự sợ hãi trước thần linh.", "Phô trương thân thế gia đình."], ans: 1 },
+      { id: 19, q: "Kiến trúc Phố cổ Hội An phản ánh đặc điểm lịch sử nào của vùng đất này?", opts: ["Sự ảnh hưởng của văn hóa Chăm Pa.", "Sự giao thoa văn hóa Việt - Hoa - Nhật và phương Tây.", "Ảnh hưởng hoàn toàn của kiến trúc Pháp.", "Sự biệt lập, không giao lưu với bên ngoài."], ans: 1 },
+      { id: 20, q: "Tại sao việc bảo tồn các làng nghề truyền thống (như gốm Thanh Hà, mộc Kim Bồng) lại gặp khó khăn trong xã hội hiện đại?", opts: ["Do nhà nước không quan tâm sản xuất thủ công.", "Do cạnh tranh từ sản phẩm công nghiệp và thiếu hụt lao động trẻ.", "Do không còn nguyên liệu sản xuất.", "Do khách du lịch không quan tâm."], ans: 1 },
+      { id: 21, q: "Đặc điểm khí hậu nào của Đà Nẵng là một thách thức, gây tác động xấu đến đời sống và sinh hoạt của người dân?", opts: ["Mùa mưa kéo dài quanh năm.", "Khí hậu ôn hòa, không có thiên tai.", "Bão, lũ và các đợt nắng nóng kéo dài.", "Không có thiên tai nên nhà cửa đơn sơ."], ans: 2 },
+      { id: 22, q: "Vai trò của cảng Tiên Sa (Đà Nẵng) trong hành lang kinh tế Đông - Tây là gì?", opts: ["Nơi trung chuyển khách du lịch nội địa.", "Cửa ngõ ra biển Đông cho các nước trong tiểu vùng sông Mê Kông.", "Khu vực chuyên đánh bắt hải sản xa bờ.", "Khu bảo tồn sinh thái biển."], ans: 1 },
+      { id: 23, q: "Vị trí địa lý của Đà Nẵng có vai trò quan trọng như thế nào trong phát triển kinh tế khu vực?", opts: ["Là vựa lúa lớn nhất miền Trung.", "Là nơi có trữ lượng khoáng sản lớn nhất.", "Là trung tâm khai thác dầu khí quốc gia.", "Là đầu mối giao thông quan trọng, cửa ngõ ra biển của Hành lang kinh tế Đông – Tây."], ans: 3 },
+      { id: 24, q: "Giá trị nổi bật nhất của nghệ thuật Bài Chòi ở Đà Nẵng (mới) là gì?", opts: ["Chỉ là trò chơi cờ bạc giải trí.", "Là hình thức kịch nói hiện đại phương Tây.", "Là sự kết hợp giữa âm nhạc, thơ ca, diễn xướng, hội họa và văn học dân gian.", "Là điệu múa cung đình trang trọng."], ans: 2 },
+      { id: 25, q: "Tại sao kiến trúc Phố cổ Hội An được coi là minh chứng cho sự giao thoa văn hóa?", opts: ["Vì có sự kết hợp kiến trúc Việt Nam, Trung Hoa, Nhật Bản và phương Tây.", "Vì được xây dựng hoàn toàn bởi người Nhật.", "Vì chỉ sử dụng vật liệu nhập khẩu từ Châu Âu.", "Vì mô phỏng lại kiến trúc kinh thành Huế."], ans: 0 },
+      { id: 26, q: "Hành động nào của học sinh thể hiện đúng nhất việc bảo tồn giá trị văn hóa phi vật thể 'Bài Chòi'?", opts: ["Chỉ xem biểu diễn khi bị bắt buộc.", "Tìm hiểu, tham gia CLB Bài Chòi và giới thiệu cho bạn bè.", "Cho rằng đây là loại hình nghệ thuật lạc hậu.", "Chỉ quan tâm đến nhạc trẻ hiện đại."], ans: 1 },
+      { id: 27, q: "Để phát triển du lịch tâm linh tại danh thắng Ngũ Hành Sơn bền vững, giải pháp nào là tối ưu nhất?", opts: ["Xây dựng thật nhiều khách sạn bê tông ngay trong khu di tích.", "Tăng giá vé thật cao để hạn chế người vào.", "Kết hợp tham quan di tích với giáo dục lịch sử, giữ gìn cảnh quan môi trường.", "Cho phép buôn bán tự do mọi nơi trong hang động."], ans: 2 },
+      { id: 28, q: "Khi tham quan các di tích tôn giáo (chùa, nhà thờ) tại địa phương, hành vi nào được xem là văn minh?", opts: ["Giao tiếp, vui đùa thoải mái để thể hiện cá tính riêng.", "Chạm khắc tên mình lên các bia đá để lưu niệm.", "Ăn mặc kín đáo, đi nhẹ nói khẽ, không xả rác.", "Mang đồ ăn vào khu vực chánh điện để ăn uống tự do."], ans: 2 },
+      { id: 29, q: "Trước tình trạng sạt lở bờ biển Cửa Đại (Hội An), giải pháp ứng phó lâu dài và hiệu quả cần tính đến yếu tố nào?", opts: ["Xây dựng bờ kè bê tông cứng toàn bộ bờ biển.", "Di dời toàn bộ dân cư vào sâu trong đất liền 5km.", "Quy hoạch không gian ven biển hợp lý và trồng rừng phòng hộ.", "Cấm hoàn toàn khai thác du lịch biển."], ans: 2 },
+      { id: 30, q: "Trước thách thức của đô thị hóa, giải pháp nào là phù hợp nhất để bảo tồn Làng đá mỹ nghệ Non Nước (Đà Nẵng)?", opts: ["Cấm hoàn toàn việc khai thác và chế tác đá.", "Di dời làng nghề ra khỏi khu vực du lịch.", "Chuyển đổi hoàn toàn sang nghề dịch vụ ăn uống.", "Quy hoạch vùng nguyên liệu bền vững kết hợp phát triển du lịch trải nghiệm."], ans: 3 },
+      { id: 31, q: "Học sinh có thể thực hiện hành động thiết thực nào để góp phần quảng bá hình ảnh Thánh địa Mỹ Sơn đến bạn bè quốc tế?", opts: ["Tham gia viết bài, làm video giới thiệu bằng tiếng Anh trên mạng xã hội.", "Đề xuất tham quan miễn phí.", "Tự ý làm hướng dẫn viên du lịch tại điểm di tích khi chưa được phép.", "Sưu tầm các hiện vật gốc mang về nhà lưu giữ."], ans: 0 },
+      { id: 32, q: "Quảng Nam và Đà Nẵng đều có đường bờ biển dài và tiềm năng phát triển kinh tế biển.", opts: ["Đúng.", "Sai."], ans: 0, isTrueFalse: true },
+      { id: 33, q: "Lễ hội Quán Thế Âm (Ngũ Hành Sơn) là lễ hội tôn giáo thuần túy, không mang màu sắc văn hóa dân gian.", opts: ["Đúng.", "Sai."], ans: 1, isTrueFalse: true },
+      { id: 34, q: "Sự đa dạng về tôn giáo ở Quảng Nam - Đà Nẵng là kết quả của quá trình mở cửa giao thương quốc tế trong lịch sử.", opts: ["Đúng.", "Sai."], ans: 0, isTrueFalse: true },
+      { id: 35, q: "Để bảo tồn Phố cổ Hội An, chúng ta nên thay thế toàn bộ nhà gỗ cũ bằng nhà bê tông giả gỗ để đảm bảo an toàn tuyệt đối.", opts: ["Đúng.", "Sai."], ans: 1, isTrueFalse: true },
+      { id: 36, q: "Thành phố Đà Nẵng thuộc vùng kinh tế trọng điểm miền Trung.", opts: ["Đúng.", "Sai."], ans: 0, isTrueFalse: true },
+      { id: 37, q: "Thánh địa Mỹ Sơn là di sản văn hóa phản ánh đậm nét dấu ấn của văn hóa Trung Hoa.", opts: ["Đúng.", "Sai."], ans: 1, isTrueFalse: true },
+      { id: 38, q: "Tín ngưỡng thờ Mẫu ở TP Đà Nẵng thể hiện đạo lý 'Uống nước nhớ nguồn' và sự tôn vinh vai trò của người phụ nữ.", opts: ["Đúng.", "Sai."], ans: 0, isTrueFalse: true },
+      { id: 39, q: "Việc thương mại hóa quá mức các lễ hội truyền thống là cách tốt nhất để bảo tồn văn hóa địa phương bền vững.", opts: ["Đúng.", "Sai."], ans: 1, isTrueFalse: true },
+      { id: 40, q: "Sự đa dạng về địa hình từ núi cao xuống đồng bằng ven biển ở TP Đà Nẵng tạo điều kiện thuận lợi để phát triển đa dạng các loại hình du lịch sinh thái.", opts: ["Đúng.", "Sai."], ans: 0, isTrueFalse: true }
+    ];
+
+    const LETTERS = ["A", "B", "C", "D"];
+    let currentExam = [];
+    let userAnswers = {};
+    let isSubmitted = false;
+    let currentSeedCode = "101";
+    let timerSeconds = 0;
+    let timerInterval = null;
+
+    // Bộ sinh số ngẫu nhiên theo hạt giống (Seeded PRNG) để mỗi Mã Đề có 1 thứ tự cố định
+    function createPRNG(seedStr) {
+      let h = 2166136261 >>> 0;
+      for (let i = 0; i < seedStr.length; i++) {
+        h ^= seedStr.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return function () {
+        h += 0x6D2B79F5;
+        let t = Math.imul(h ^ (h >>> 15), 1 | h);
+        t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function shuffleArray(arr, rand) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(rand() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function buildExam() {
+      const codeSelect = document.getElementById("examCode").value;
+      const doShuffleQ = document.getElementById("shuffleQuestions").checked;
+      const doShuffleO = document.getElementById("shuffleOptions").checked;
+
+      if (codeSelect === "000") {
+        currentSeedCode = "000";
+      } else if (codeSelect === "random") {
+        currentSeedCode = String(Math.floor(106 + Math.random() * 890));
+      } else {
+        currentSeedCode = codeSelect;
+      }
+
+      const rand = createPRNG("GDDP10_" + currentSeedCode);
+
+      let prepared = RAW_QUESTIONS.map((item) => {
+        const mappedOpts = item.opts.map((text, idx) => ({
+          text,
+          isCorrect: idx === item.ans
+        }));
+
+        const finalOpts =
+          currentSeedCode !== "000" && doShuffleO && !item.isTrueFalse
+            ? shuffleArray(mappedOpts, rand)
+            : mappedOpts;
+
+        return {
+          ...item,
+          shuffledOpts: finalOpts
+        };
+      });
+
+      if (currentSeedCode !== "000" && doShuffleQ) {
+        prepared = shuffleArray(prepared, rand);
+      }
+
+      currentExam = prepared;
+      userAnswers = {};
+      isSubmitted = false;
+
+      document.getElementById("currentCodeLabel").textContent = "Mã đề: " + currentSeedCode;
+      document.getElementById("resultBox").classList.remove("show");
+      document.getElementById("submitBtn").disabled = false;
+      document.getElementById("submitBtn").style.display =
+        document.getElementById("quizMode").value === "practice" ? "none" : "inline-flex";
+
+      startTimer();
+      renderExam();
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerSeconds = 0;
+      updateTimerUI();
+      timerInterval = setInterval(() => {
+        if (!isSubmitted) {
+          timerSeconds++;
+          updateTimerUI();
+        }
+      }, 1000);
+    }
+
+    function updateTimerUI() {
+      const m = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
+      const s = String(timerSeconds % 60).padStart(2, "0");
+      document.getElementById("timerLabel").textContent = `⏱ ${m}:${s}`;
+    }
+
+    function renderExam() {
+      const container = document.getElementById("questionsContainer");
+      const navGrid = document.getElementById("navGrid");
+      container.innerHTML = "";
+      navGrid.innerHTML = "";
+
+      currentExam.forEach((qItem, qIndex) => {
+        // Thẻ câu hỏi
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `q-card-${qIndex}`;
+
+        const title = document.createElement("div");
+        title.className = "q-title";
+        title.innerHTML = `<span class="q-num">Câu ${qIndex + 1}:</span> ${qItem.q}`;
+        card.appendChild(title);
+
+        const optsWrap = document.createElement("div");
+        optsWrap.className = "options";
+
+        qItem.shuffledOpts.forEach((opt, optIdx) => {
+          const label = document.createElement("label");
+          label.className = "opt-label";
+          label.id = `opt-${qIndex}-${optIdx}`;
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `question_${qIndex}`;
+          input.value = optIdx;
+          input.onchange = () => selectOption(qIndex, optIdx);
+
+          const span = document.createElement("span");
+          span.innerHTML = `<strong>${LETTERS[optIdx]}.</strong> ${opt.text}`;
+
+          label.appendChild(input);
+          label.appendChild(span);
+          optsWrap.appendChild(label);
+        });
+
+        const feedback = document.createElement("div");
+        feedback.className = "q-feedback";
+        feedback.id = `feedback-${qIndex}`;
+
+        card.appendChild(optsWrap);
+        card.appendChild(feedback);
+        container.appendChild(card);
+
+        // Nút điều hướng bên phải
+        const navBtn = document.createElement("button");
+        navBtn.className = "nav-item";
+        navBtn.id = `nav-${qIndex}`;
+        navBtn.textContent = qIndex + 1;
+        navBtn.onclick = () => {
+          document.getElementById(`q-card-${qIndex}`).scrollIntoView({ behavior: "smooth", block: "center" });
+        };
+        navGrid.appendChild(navBtn);
+      });
+
+      updateAnsweredCount();
+    }
+
+    function selectOption(qIndex, optIdx) {
+      const mode = document.getElementById("quizMode").value;
+      if (isSubmitted) return;
+
+      userAnswers[qIndex] = optIdx;
+
+      // Cập nhật giao diện chọn
+      const totalOpts = currentExam[qIndex].shuffledOpts.length;
+      for (let i = 0; i < totalOpts; i++) {
+        const el = document.getElementById(`opt-${qIndex}-${i}`);
+        el.classList.remove("selected", "correct-opt", "wrong-opt");
+        if (i === optIdx) el.classList.add("selected");
+      }
+
+      const navBtn = document.getElementById(`nav-${qIndex}`);
+      navBtn.classList.add("answered");
+
+      if (mode === "practice") {
+        evaluateSingleQuestion(qIndex);
+      }
+
+      updateAnsweredCount();
+    }
+
+    function evaluateSingleQuestion(qIndex) {
+      const qItem = currentExam[qIndex];
+      const chosen = userAnswers[qIndex];
+      const correctIdx = qItem.shuffledOpts.findIndex((o) => o.isCorrect);
+      const fb = document.getElementById(`feedback-${qIndex}`);
+      const navBtn = document.getElementById(`nav-${qIndex}`);
+
+      qItem.shuffledOpts.forEach((_, idx) => {
+        const el = document.getElementById(`opt-${qIndex}-${idx}`);
+        el.classList.remove("selected", "correct-opt", "wrong-opt");
+        if (idx === correctIdx) el.classList.add("correct-opt");
+        if (chosen !== undefined && idx === chosen && chosen !== correctIdx) {
+          el.classList.add("wrong-opt");
+        }
+      });
+
+      fb.classList.remove("ok", "err", "warn");
+      fb.classList.add("show");
+      navBtn.classList.remove("answered", "correct", "wrong");
+
+      if (chosen === undefined) {
+        fb.classList.add("warn");
+        fb.textContent = `Chưa trả lời • Đáp án đúng là ${LETTERS[correctIdx]}.`;
+      } else if (chosen === correctIdx) {
+        fb.classList.add("ok");
+        fb.textContent = `✓ Chính xác!`;
+        navBtn.classList.add("correct");
+      } else {
+        fb.classList.add("err");
+        fb.textContent = `✗ Sai rồi • Đáp án đúng là ${LETTERS[correctIdx]}.`;
+        navBtn.classList.add("wrong");
+      }
+    }
+
+    function updateAnsweredCount() {
+      document.getElementById("answeredCount").textContent = Object.keys(userAnswers).length;
+    }
+
+    function submitExam() {
+      if (isSubmitted) return;
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < currentExam.length) {
+        const ok = confirm(`Bạn mới làm ${answeredCount}/${currentExam.length} câu. Bạn có chắc muốn nộp bài ngay không?`);
+        if (!ok) return;
+      }
+
+      isSubmitted = true;
+      clearInterval(timerInterval);
+
+      let correctCount = 0;
+      currentExam.forEach((qItem, qIndex) => {
+        const correctIdx = qItem.shuffledOpts.findIndex((o) => o.isCorrect);
+        if (userAnswers[qIndex] === correctIdx) correctCount++;
+        evaluateSingleQuestion(qIndex);
+
+        // Khóa radio sau khi nộp
+        document.querySelectorAll(`input[name="question_${qIndex}"]`).forEach((inp) => {
+          inp.disabled = true;
+        });
+      });
+
+      const score10 = ((correctCount / currentExam.length) * 10).toFixed(2);
+      document.getElementById("scoreText").textContent = `${score10} / 10`;
+      document.getElementById("detailText").textContent = `Đúng ${correctCount} / ${currentExam.length} câu`;
+      document.getElementById("resultBox").classList.add("show");
+      document.getElementById("submitBtn").disabled = true;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function resetCurrentExam() {
+      userAnswers = {};
+      isSubmitted = false;
+      document.getElementById("resultBox").classList.remove("show");
+      document.getElementById("submitBtn").disabled = false;
+      document.getElementById("submitBtn").style.display =
+        document.getElementById("quizMode").value === "practice" ? "none" : "inline-flex";
+      startTimer();
+      renderExam();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function generateNewRandomCode() {
+      document.getElementById("examCode").value = "random";
+      buildExam();
+    }
+
+    // Lắng nghe thay đổi cấu hình
+    document.getElementById("examCode").addEventListener("change", buildExam);
+    document.getElementById("shuffleQuestions").addEventListener("change", buildExam);
+    document.getElementById("shuffleOptions").addEventListener("change", buildExam);
+    document.getElementById("quizMode").addEventListener("change", resetCurrentExam);
+
+    // Khởi tạo đề ban đầu
+    buildExam();
+  </script>
+</body>
+</html>
